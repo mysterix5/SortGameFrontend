@@ -1,11 +1,10 @@
 
-export interface GameInfo {
-    id: string;
-    totalContainers: number;
-    colors: number;
-    playingField: Array<Container>;
+export interface Container {
+    height: number;
+    colorList: string[]
 }
 
-export interface Container {
-    colorList: string[]
+export interface Game {
+    id: string;
+    playingField: Array<Container>;
 }

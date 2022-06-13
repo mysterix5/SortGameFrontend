@@ -2,7 +2,8 @@ import "./GamesOverview.css"
 import chicken from "./chicken-icon.png"
 
 interface ChickenComponentProps {
-    color: string
+    color: string;
+    dummy: boolean;
 }
 
 export default function ChickenComponent (props: ChickenComponentProps) {

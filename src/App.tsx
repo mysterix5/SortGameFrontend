@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import SavedGamesOverview from "./components/SavedGamesOverview";
+import SavedGamesOverview from "./components/Main";
 
 function App() {
   return (
