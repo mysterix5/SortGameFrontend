@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8666bb25-7b39-4b58-adad-ddbd42be5b8f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/sort_game_frontend.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+    <list default="true" id="8666bb25-7b39-4b58-adad-ddbd42be5b8f" name="Changes" comment="better solve algorithm, added colored border for clicked first container">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ChickenComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ChickenComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ContainerComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ContainerComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/GameComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/GameComponent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/GamesOverview.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/GamesOverview.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/PlayingFieldComponent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PlayingFieldComponent.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,8 +66,16 @@
       <workItem from="1655317162876" duration="598000" />
       <workItem from="1655450983488" duration="484000" />
       <workItem from="1657197126535" duration="1795000" />
-      <workItem from="1657273545005" duration="4056000" />
+      <workItem from="1657273545005" duration="5195000" />
     </task>
+    <task id="LOCAL-00001" summary="better solve algorithm, added colored border for clicked first container">
+      <created>1657286175030</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1657286175030</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -89,5 +91,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="better solve algorithm, added colored border for clicked first container" />
+    <option name="LAST_COMMIT_MESSAGE" value="better solve algorithm, added colored border for clicked first container" />
   </component>
 </project>
