@@ -9,8 +9,18 @@ interface ChickenComponentProps {
 export default function ChickenComponent (props: ChickenComponentProps) {
 
     return (
-        <div style={{backgroundColor: props.color}} className="containercolor">
-            <img className="chicken" src={chicken} alt={`${props.color} chicken`}/>
+        <div>
+            {
+                props.dummy
+                    ?
+                    <div style={{visibility: "hidden"}} className="containercolor">
+                        <img className="chicken" src={chicken} alt={`${props.color} chicken`}/>
+                    </div>
+                    :
+                    <div style={{backgroundColor: props.color}} className="containercolor">
+                        <img className="chicken" src={chicken} alt={`${props.color} chicken`}/>
+                    </div>
+            }
         </div>
     )
 }

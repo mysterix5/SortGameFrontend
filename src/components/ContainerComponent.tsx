@@ -1,38 +1,52 @@
 import {Container} from "../models";
 import "./GamesOverview.css"
 import ChickenComponent from "./ChickenComponent";
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
+import {Box} from "@mui/material";
 
 interface ContainerComponentProps {
     id: number;
     container: Container;
-    setClickedContainer: (index: number)=>void;
+    setClickedContainer: (index: number)=>string;
+    rerender: boolean;
 }
 
 export default function ContainerComponent(props: ContainerComponentProps){
 
-    const [rerender, setRerender] = useState(false);
+    const [borderColor, setBorderColor] = useState('#000000');
 
     useEffect(()=>{
-        console.log("container: " + props.container.colorList.length + "/" + props.container.height);
-        for(let i = props.container.colorList.length; i<props.container.height; i++){
-            props.container.colorList.push("WHITE")
-        }
-        setRerender(!rerender);
-    }, [props.container])
+        setBorderColor('#000000')
+    },[props.rerender]);
 
     function containerClicked() {
         console.log("container id: " + props.id);
-        props.setClickedContainer(props.id);
+        const clickOption = props.setClickedContainer(props.id);
+        if(clickOption==="first"){
+            setBorderColor("#EE70FF")
+        }else if(clickOption==="cancelFirst"){
+            setBorderColor("#000")
+        }
+    }
+
+    function getDummyContainers() {
+        let dummies = [];
+        for(let i = props.container.colorList.length; i<props.container.height; i++){
+            dummies.push(<ChickenComponent key={i} color="WHITE" dummy={true}/>);
+        }
+        return dummies;
     }
 
     return (
-        <div className="container" onClick={()=>containerClicked()}>
+        <Box className="container" sx={{border: {borderColor}}} onClick={()=>containerClicked()}>
             {
                 props.container.colorList.map(
                     (c, i)=> (
                     <ChickenComponent key={i} color={c} dummy={false}/> ))
             }
-        </div>
+            {
+                getDummyContainers()
+            }
+        </Box>
     )
 }

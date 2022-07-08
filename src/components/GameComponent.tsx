@@ -13,6 +13,8 @@ export default function GameComponent(props: GameProps) {
     const [game, setGame] = useState<Game>();
     const [containerFrom, setContainerFrom] = useState<number>(-1);
 
+    const [rerenderAllContainers, setRerenderAllContainers] = useState(false);
+
     useEffect(()=>{
         console.log(props.id);
         fetchGameById(props.id);
@@ -58,33 +60,18 @@ export default function GameComponent(props: GameProps) {
             });
     }
 
-    //
-    //
-    // fetch('http://localhost:8080/api/kanban', {
-    //     method: 'PUT',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({task: task, description: description, status: status, id: props.editId}),
-    // })
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         console.log('Success:', data);
-    //         props.fetchAll();
-    //         props.setEditMode("view");// TODO bessere Möglichkeit
-    //     })
-    //     .catch((error) => {
-    //         console.error('Error:', error);
-    //     });
-
     const setClickedContainer = (index: number) => {
         if(containerFrom === -1) {
             setContainerFrom(index);
+            return "first";
         }else if(containerFrom === index){
             setContainerFrom(-1);
+            return "cancelFirst"
         } else {
             executeMove(containerFrom, index);
             setContainerFrom(-1);
+            setRerenderAllContainers(!rerenderAllContainers);
+            return "executeMoveSuccess"
         }
     }
 
@@ -94,7 +81,7 @@ export default function GameComponent(props: GameProps) {
             {game?.playingField &&
                 <div>
                     <PlayingFieldComponent key="playingField" playingField={game.playingField}
-                                           setClickedContainer={setClickedContainer}/>
+                                           setClickedContainer={setClickedContainer} rerenderAllContainers={rerenderAllContainers}/>
                     <button onClick={() => resetGame(props.id)}>Reset game</button>
                 </div>
             }
