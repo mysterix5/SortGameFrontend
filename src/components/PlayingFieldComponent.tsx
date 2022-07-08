@@ -1,5 +1,6 @@
 import {Container} from "../models";
 import ContainerComponent from "./ContainerComponent";
+import {Box} from "@mui/material";
 
 interface PlayingFieldComponentProps{
     playingField: Array<Container>
@@ -10,10 +11,10 @@ interface PlayingFieldComponentProps{
 export default function PlayingFieldComponent (props: PlayingFieldComponentProps) {
 
     return (
-        <div className="playingfield">
+        <Box display={"flex"} flexDirection={"row"} border={"5px indigo solid"}>
             {
                 props.playingField.map((c, i) => <ContainerComponent key={i} container={c} id={i} setClickedContainer={props.setClickedContainer} rerender={props.rerenderAllContainers}/>)
             }
-        </div>
+        </Box>
     )
 }

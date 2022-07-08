@@ -1,8 +1,9 @@
 import React from 'react';
-import './App.css';
-import SavedGamesOverview from "./components/Main";
 import {createTheme, CssBaseline, ThemeProvider} from "@mui/material";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
+import GameComponent from "./components/GameComponent";
+import Main from "./components/Main";
+import Header from "./components/Header";
 
 const darkTheme = createTheme({
     palette: {
@@ -15,8 +16,10 @@ function App() {
         <ThemeProvider theme={darkTheme}>
             <CssBaseline/>
             <BrowserRouter>
+                <Header/>
                 <Routes>
-                    <Route path="/" element={<SavedGamesOverview/>}/>
+                    <Route path="/" element={<Main/>}/>
+                    <Route path="/game/:id" element={<GameComponent/>}/>
                 </Routes>
             </BrowserRouter>
         </ThemeProvider>

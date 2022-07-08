@@ -1,5 +1,4 @@
 import {Container} from "../models";
-import "./GamesOverview.css"
 import ChickenComponent from "./ChickenComponent";
 import {useEffect, useState} from "react";
 import {Box} from "@mui/material";
@@ -11,12 +10,14 @@ interface ContainerComponentProps {
     rerender: boolean;
 }
 
+const borderResetColor = '#3e972a'
+
 export default function ContainerComponent(props: ContainerComponentProps){
 
-    const [borderColor, setBorderColor] = useState('#000000');
+    const [borderColor, setBorderColor] = useState(borderResetColor);
 
     useEffect(()=>{
-        setBorderColor('#000000')
+        setBorderColor(borderResetColor)
     },[props.rerender]);
 
     function containerClicked() {
@@ -25,7 +26,7 @@ export default function ContainerComponent(props: ContainerComponentProps){
         if(clickOption==="first"){
             setBorderColor("#EE70FF")
         }else if(clickOption==="cancelFirst"){
-            setBorderColor("#000")
+            setBorderColor(borderResetColor)
         }
     }
 
@@ -38,7 +39,7 @@ export default function ContainerComponent(props: ContainerComponentProps){
     }
 
     return (
-        <Box className="container" sx={{border: {borderColor}}} onClick={()=>containerClicked()}>
+        <Box display={"flex"} flexDirection={"column-reverse"} minWidth={"30px"} border={`${borderColor} solid`} onClick={()=>containerClicked()}>
             {
                 props.container.colorList.map(
                     (c, i)=> (

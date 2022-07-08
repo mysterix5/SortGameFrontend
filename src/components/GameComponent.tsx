@@ -1,24 +1,25 @@
-import {useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import {Game} from "../models";
-import "./GamesOverview.css"
 import PlayingFieldComponent from "./PlayingFieldComponent";
+import {useNavigate, useParams} from "react-router-dom";
+import {Box, Button, Grid} from "@mui/material";
+import {blueGrey} from "@mui/material/colors";
 
 
-interface GameProps {
-    id: string;
-}
-
-export default function GameComponent(props: GameProps) {
+export default function GameComponent() {
 
     const [game, setGame] = useState<Game>();
     const [containerFrom, setContainerFrom] = useState<number>(-1);
 
     const [rerenderAllContainers, setRerenderAllContainers] = useState(false);
 
-    useEffect(()=>{
-        console.log(props.id);
-        fetchGameById(props.id);
-    }, [props])
+    const {id} = useParams();
+    const nav = useNavigate();
+
+    useEffect(() => {
+        console.log(id);
+        fetchGameById(id!);
+    }, [id])
 
     function fetchGameById(id: string) {
         console.log(`fetch game by id: ${id}`);
@@ -27,6 +28,9 @@ export default function GameComponent(props: GameProps) {
             .then((g: Game) => {
                 setGame(g);
                 console.log(g);
+            })
+            .catch(() => {
+                nav("/");
             });
     }
 
@@ -41,7 +45,7 @@ export default function GameComponent(props: GameProps) {
             }
         )
             .then(() => {
-                fetchGameById(props.id);
+                fetchGameById(id!);
             });
     }
 
@@ -52,19 +56,19 @@ export default function GameComponent(props: GameProps) {
             {
                 method: 'PUT',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({id: props.id})
+                body: JSON.stringify({id: id})
             }
         )
             .then(() => {
-                fetchGameById(props.id);
+                fetchGameById(id);
             });
     }
 
     const setClickedContainer = (index: number) => {
-        if(containerFrom === -1) {
+        if (containerFrom === -1) {
             setContainerFrom(index);
             return "first";
-        }else if(containerFrom === index){
+        } else if (containerFrom === index) {
             setContainerFrom(-1);
             return "cancelFirst"
         } else {
@@ -77,15 +81,20 @@ export default function GameComponent(props: GameProps) {
 
 
     return (
-        <div className="gameinfo">
+        <Box margin={"15px"} borderRadius={"15px"} sx={{backgroundColor: blueGrey}}>
             {game?.playingField &&
-                <div>
-                    <PlayingFieldComponent key="playingField" playingField={game.playingField}
-                                           setClickedContainer={setClickedContainer} rerenderAllContainers={rerenderAllContainers}/>
-                    <button onClick={() => resetGame(props.id)}>Reset game</button>
-                </div>
+                <Grid container justifyContent={"center"}>
+                    <Grid item>
+                        <PlayingFieldComponent key="playingField" playingField={game.playingField}
+                                               setClickedContainer={setClickedContainer}
+                                               rerenderAllContainers={rerenderAllContainers}/>
+                    </Grid>
+                    <Grid item>
+                        <Button variant={"contained"} sx={{margin: 2}} onClick={() => resetGame(id!)}>Reset game</Button>
+                    </Grid>
+                </Grid>
             }
 
-        </div>
+        </Box>
     )
 }
