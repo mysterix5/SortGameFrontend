@@ -4,6 +4,7 @@ import PlayingFieldComponent from "./PlayingFieldComponent";
 import {useNavigate, useParams} from "react-router-dom";
 import {Box, Button, Grid, Typography} from "@mui/material";
 import {blueGrey} from "@mui/material/colors";
+import {apiServiceExecuteMove, apiServiceFetchGameById, apiServiceGetHint, apiServiceResetGame} from "../apiService";
 
 export default function GameComponent() {
 
@@ -27,8 +28,7 @@ export default function GameComponent() {
 
     function fetchGameById(id: string) {
         console.log(`fetch game by id: ${id}`);
-        fetch(`http://localhost:8080/api/game/${id}`)
-            .then(response => response.json())
+        apiServiceFetchGameById(id)
             .then((g: Game) => {
                 setGame(g);
                 console.log(g);
@@ -41,13 +41,7 @@ export default function GameComponent() {
     const executeMove = (containerFrom: number, containerTo: number) => {
 
         console.log(`execute move: from ${containerFrom} to ${containerTo}`);
-        fetch(`http://localhost:8080/api/game/move`,
-            {
-                method: 'PUT',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({id: game!.id, move: {from: containerFrom, to: containerTo}})
-            }
-        )
+        apiServiceExecuteMove(id!, {from: containerFrom, to: containerTo})
             .then(() => {
                 fetchGameById(id!);
             });
@@ -56,21 +50,14 @@ export default function GameComponent() {
 
     const resetGame = (id: string) => {
         console.log(`reset game ${id}`);
-        fetch(`http://localhost:8080/api/game/reset`,
-            {
-                method: 'PUT',
-                headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify({id: id})
-            }
-        )
+        apiServiceResetGame(id)
             .then(() => {
                 fetchGameById(id);
             });
     }
 
     function getHint() {
-        fetch(`http://localhost:8080/api/game/${id}/hint`)
-            .then(response => response.json())
+        apiServiceGetHint(id!)
             .then(setMoveHint)
     }
 
