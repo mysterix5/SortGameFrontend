@@ -1,20 +1,24 @@
 import {useEffect, useState} from "react";
-import {Game} from "../models";
+import {Game, Move} from "../models";
 import PlayingFieldComponent from "./PlayingFieldComponent";
 import {useNavigate, useParams} from "react-router-dom";
-import {Box, Button, Grid} from "@mui/material";
+import {Box, Button, Grid, Typography} from "@mui/material";
 import {blueGrey} from "@mui/material/colors";
-
 
 export default function GameComponent() {
 
     const [game, setGame] = useState<Game>();
     const [containerFrom, setContainerFrom] = useState<number>(-1);
+    const [moveHint, setMoveHint] = useState<Move>()
 
     const [rerenderAllContainers, setRerenderAllContainers] = useState(false);
 
     const {id} = useParams();
     const nav = useNavigate();
+
+    useEffect(()=>{
+        setTimeout(()=>setMoveHint(undefined), 5000);
+    }, [moveHint])
 
     useEffect(() => {
         console.log(id);
@@ -64,6 +68,12 @@ export default function GameComponent() {
             });
     }
 
+    function getHint() {
+        fetch(`http://localhost:8080/api/game/${id}/hint`)
+            .then(response => response.json())
+            .then(setMoveHint)
+    }
+
     const setClickedContainer = (index: number) => {
         if (containerFrom === -1) {
             setContainerFrom(index);
@@ -91,6 +101,17 @@ export default function GameComponent() {
                     </Grid>
                     <Grid item>
                         <Button variant={"contained"} sx={{margin: 2}} onClick={() => resetGame(id!)}>Reset game</Button>
+                    </Grid>
+                    <Grid item>
+                        <Button variant={"contained"} sx={{margin: 2}} onClick={() => getHint()}>get Hint</Button>
+                    </Grid>
+                    <Grid item>
+                        {
+                            moveHint &&
+                            <Typography>
+                                `${moveHint.from} ${moveHint.to}`
+                            </Typography>
+                        }
                     </Grid>
                 </Grid>
             }
