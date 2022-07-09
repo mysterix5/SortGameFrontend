@@ -24,6 +24,7 @@ export default function GameComponent() {
     useEffect(() => {
         console.log(id);
         fetchGameById(id!);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [id])
 
     function fetchGameById(id: string) {
