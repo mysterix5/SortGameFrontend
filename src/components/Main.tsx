@@ -3,11 +3,24 @@ import {useEffect, useState} from "react";
 import {Game} from "../models";
 import MiniPlayingField from "./thumbnail/MiniPlayingField";
 import {apiServiceFetchAllGames} from "../apiService";
+import {useNavigate} from "react-router-dom";
+import {useAuth} from "../usermanagement/AuthProvider";
 
 
 export default function Main() {
 
     const [savedGames, setSavedGames] = useState<Game[]>();
+
+    const {username} = useAuth();
+
+    const nav = useNavigate();
+
+    useEffect(() => {
+            if (!username) {
+                nav("/login")
+            }
+        }
+        , [username, nav]);
 
     useEffect(fetchSavedGames, [])
 
