@@ -9,7 +9,19 @@ export interface Game {
     playingField: Array<Container>;
 }
 
+export interface LevelsOverview {
+    newLevels: Game[],
+    startedLevels: Game[],
+    finishedLevels: Game[]
+}
+
 export interface Move{
     from: number,
     to: number
+}
+
+export interface GameCreationData {
+    empty: number,
+    colors: number,
+    height: number
 }
