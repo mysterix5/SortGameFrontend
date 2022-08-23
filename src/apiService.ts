@@ -1,5 +1,5 @@
 import axios, {AxiosResponse} from "axios";
-import {Game, Move} from "./models";
+import {Game, GameCreationData, LevelsOverview, Move} from "./models";
 import {LoginDTO, LoginResponse, RegisterDTO} from "./usermanagement/AuthModels";
 
 
@@ -9,12 +9,27 @@ function createHeaders() {
     }
 }
 
-export function apiServiceFetchAllGames() {
-    return axios.get(
-        `${process.env.REACT_APP_BACKEND_URL}/api/game`,
+export function apiServiceCreateNewLevel(gameCreationData: GameCreationData) {
+    return axios.post(
+        `${process.env.REACT_APP_BACKEND_URL}/api/game/create`,
+        gameCreationData,
         createHeaders()
     )
-        .then((r: AxiosResponse<Game[]>) => r.data);
+}
+
+export function apiServiceDeleteAllLevels() {
+    return axios.delete(
+        `${process.env.REACT_APP_BACKEND_URL}/api/game/deleteall`,
+        createHeaders()
+    )
+}
+
+export function apiServiceFetchAllLevels() {
+    return axios.get(
+        `${process.env.REACT_APP_BACKEND_URL}/api/game/getall`,
+        createHeaders()
+    )
+        .then((r: AxiosResponse<LevelsOverview>) => r.data);
 }
 
 export function apiServiceFetchGameById(id: string) {
