@@ -11,7 +11,7 @@ export default function Main() {
 
     const [levels, setLevels] = useState<LevelsOverview>({finishedLevels: [], newLevels: [], startedLevels: []});
 
-    const {username} = useAuth();
+    const {username, defaultApiResponseChecks} = useAuth();
 
     const nav = useNavigate();
 
@@ -30,6 +30,9 @@ export default function Main() {
             .then((levels: LevelsOverview) => {
                 setLevels(levels);
                 console.log(levels);
+            })
+            .catch(err => {
+                defaultApiResponseChecks(err);
             });
     }
 
@@ -37,7 +40,10 @@ export default function Main() {
         const gameCreationData: GameCreationData = {colors: 10, empty: 2, height: 4};
         apiServiceCreateNewLevel(gameCreationData)
             .then(() => fetchLevels())
-            .then(() => console.log("new level created"));
+            .then(() => console.log("new level created"))
+            .catch(err => {
+                defaultApiResponseChecks(err);
+            });
     }
 
     return (
