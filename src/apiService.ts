@@ -16,13 +16,13 @@ export function apiServiceCreateNewLevel(gameCreationData: GameCreationData) {
         createHeaders()
     )
 }
-
-export function apiServiceDeleteAllLevels() {
-    return axios.delete(
-        `${process.env.REACT_APP_BACKEND_URL}/api/game/deleteall`,
-        createHeaders()
-    )
-}
+//
+// export function apiServiceDeleteAllLevels() {
+//     return axios.delete(
+//         `${process.env.REACT_APP_BACKEND_URL}/api/game/deleteall`,
+//         createHeaders()
+//     )
+// }
 
 export function apiServiceFetchAllLevels() {
     return axios.get(
