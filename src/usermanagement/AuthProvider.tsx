@@ -13,8 +13,9 @@ export default function AuthProvider({children}: { children: ReactNode }) {
         if (token) {
             const decoded = window.atob(token.split('.')[1]);
             const decodeJWT = JSON.parse(decoded);
-            setUsername(decodeJWT.sub);
+            setUsername(decodeJWT.username);
             setRoles(decodeJWT.roles)
+            console.log(decodeJWT)
         }
     }, [token]);
 

@@ -1,10 +1,11 @@
 import {useEffect, useState} from "react";
 import {Game, Move} from "../models";
 import PlayingFieldComponent from "./PlayingFieldComponent";
-import {useNavigate, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {Box, Button, Grid, Typography} from "@mui/material";
 import {blueGrey} from "@mui/material/colors";
 import {apiServiceExecuteMove, apiServiceFetchGameById, apiServiceGetHint, apiServiceResetGame} from "../apiService";
+import {useAuth} from "../usermanagement/AuthProvider";
 
 export default function GameComponent() {
 
@@ -15,7 +16,8 @@ export default function GameComponent() {
     const [rerenderAllContainers, setRerenderAllContainers] = useState(false);
 
     const {id} = useParams();
-    const nav = useNavigate();
+    const {defaultApiResponseChecks} = useAuth();
+
 
     useEffect(()=>{
         setTimeout(()=>setMoveHint(undefined), 5000);
@@ -34,8 +36,8 @@ export default function GameComponent() {
                 setGame(g);
                 console.log(g);
             })
-            .catch(() => {
-                nav("/");
+            .catch(err => {
+                defaultApiResponseChecks(err);
             });
     }
 
@@ -45,6 +47,9 @@ export default function GameComponent() {
         apiServiceExecuteMove(id!, {from: containerFrom, to: containerTo})
             .then(() => {
                 fetchGameById(id!);
+            })
+            .catch(err => {
+                defaultApiResponseChecks(err);
             });
     }
 
@@ -54,12 +59,18 @@ export default function GameComponent() {
         apiServiceResetGame(id)
             .then(() => {
                 fetchGameById(id);
+            })
+            .catch(err => {
+                defaultApiResponseChecks(err);
             });
     }
 
     function getHint() {
         apiServiceGetHint(id!)
             .then(setMoveHint)
+            .catch(err => {
+                defaultApiResponseChecks(err);
+            });
     }
 
     const setClickedContainer = (index: number) => {
