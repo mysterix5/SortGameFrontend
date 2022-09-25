@@ -22,7 +22,7 @@ export default function Main() {
         }
         , [username, nav]);
 
-    useEffect(fetchLevels, [])
+    useEffect(fetchLevels, [defaultApiResponseChecks])
 
     function fetchLevels() {
         console.log(`fetch saved games`);
