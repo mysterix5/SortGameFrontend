@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import {sendRegister} from "../apiService";
 import {Box, Button, Grid, InputAdornment, TextField, Typography} from "@mui/material";
 import {AccountCircle, Key} from "@mui/icons-material";
+import {useAuth} from "./AuthProvider";
 
 export default function RegisterPage() {
 
@@ -10,12 +11,17 @@ export default function RegisterPage() {
     const [password, setPassword] = useState("");
     const [passwordRepeat, setPasswordRepeat] = useState("");
 
+    const {defaultApiResponseChecks} = useAuth();
+
     const nav = useNavigate();
 
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault();
         sendRegister({username, password, passwordRepeat})
-            .then(() => nav("/login"));
+            .then(() => nav("/login"))
+            .catch(err => {
+                defaultApiResponseChecks(err);
+            });
     };
 
     return (

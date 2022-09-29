@@ -25,3 +25,8 @@ export interface GameCreationData {
     colors: number,
     height: number
 }
+
+export interface MyError {
+    message: string,
+    subMessages: string[]
+}
