@@ -7,7 +7,7 @@ import {sendLogin} from "../apiService";
 
 export default function LoginPage() {
 
-    const {username, login} = useAuth();
+    const {username, login, defaultApiResponseChecks} = useAuth();
 
     const nav = useNavigate();
 
@@ -26,6 +26,9 @@ export default function LoginPage() {
         sendLogin({username: inputUsername, password})
             .then(r => login(r.token))
             .then(() => nav("/"))
+            .catch(err => {
+                defaultApiResponseChecks(err);
+            });
     };
 
     return (

@@ -3,6 +3,7 @@ import {Box, Button, Grid, Typography} from "@mui/material";
 import React from "react";
 import {useAuth} from "../usermanagement/AuthProvider";
 import LogoutIcon from '@mui/icons-material/Logout';
+import {Toaster} from "react-hot-toast";
 
 
 export default function Header() {
@@ -10,6 +11,10 @@ export default function Header() {
     const {username, logout} = useAuth();
     return (
         <Box display={'flex'} justifyContent={'center'} m={1} mt={1.5}>
+            <Toaster
+                position="top-right"
+                reverseOrder={false}
+            />
             <Grid container
                   border={0.1} borderColor={"lightgrey"} borderRadius={2}
                   mt={1} ml={1} mr={1} mb={2}
